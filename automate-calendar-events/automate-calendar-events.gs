@@ -105,6 +105,8 @@ function deleteCalendarEvent(row) {
   var calendar_event = CalendarApp.getCalendarsByName(CALENDAR_NAME)[0].getEventById(calendar_id);
   
   calendar_event.deleteEvent();
+
+  sheet.getRange(row, CALENDAR_COLUMN).setNote(null);
 }
 
 function calendarEventExists(row) {
