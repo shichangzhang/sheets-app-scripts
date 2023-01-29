@@ -95,6 +95,10 @@ function updateCalendarEvent(row) {
 
 function deleteCalendarEvent(row) {
   var sheet = SpreadsheetApp.getActiveSheet();
+  var event_datetime = sheet.getRange(row, DATETIME_COLUMN).getValue();
+  var event_location = sheet.getRange(row, LOCATION_COLUMN).getValue();
+  var event_name = sheet.getRange(row, NAME_COLUMN).getValue();
+  var event_description = sheet.getRange(row, DESCRIPTION_COLUMN).getValue();
 
   console.log("Deleting event" + event_datetime, event_location, event_name, event_description);
   var calendar_id = sheet.getRange(row, CALENDAR_COLUMN).getNote();
@@ -105,8 +109,17 @@ function deleteCalendarEvent(row) {
 
 function calendarEventExists(row) {
   var sheet = SpreadsheetApp.getActiveSheet();
-
+  
+  // Check if event was manually deleted
+  var calendar = CalendarApp.getCalendarsByName(CALENDAR_NAME)[0].getId();
   var calendar_id = sheet.getRange(row, CALENDAR_COLUMN).getNote();
+  var eventId = calendar_id.split("@")[0];
+
+  if(Calendar.Events.get(calendar, eventId).status === "cancelled") {
+    console.log("Found cancelled event!");    
+    return false; // Create a new one
+  }
+  
   return calendar_id != "";
 }
 
