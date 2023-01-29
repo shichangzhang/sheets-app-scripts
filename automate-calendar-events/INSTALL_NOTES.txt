@@ -1,0 +1,6 @@
+Steps to install:
+* Create new Google sheet > "Extensions" > "Add-ons"
+* Copy all files to "<> Editor"
+* Update column numbers to match data columns
+* Create triggers for edit/open
+* Profit
