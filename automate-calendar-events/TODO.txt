@@ -1,0 +1,4 @@
+TODO:
+* refactor existing code
+* make it easier to configure on install
+* Optimise script runtime by reducing number of API calls
